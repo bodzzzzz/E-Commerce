@@ -105,6 +105,17 @@ namespace E_Commerce.Data
             modelBuilder.Entity<User>().HasData(
                 new User { Id = 1, Username = "Abdelrahman", Email = "budi@example.com", PasswordHash = "hashedpassword" }
             );
+
+            // Seed Cart
+            modelBuilder.Entity<Cart>().HasData(
+                new Cart { Id = 1, UserId = 1 }
+            );
+
+            // Seed CartItems
+            modelBuilder.Entity<CartItem>().HasData(
+                new CartItem { Id = 1, CartId = 1, ProductId = 1, Quantity = 2 },
+                new CartItem { Id = 2, CartId = 1, ProductId = 2, Quantity = 1 }
+            );
         }
     }
 }

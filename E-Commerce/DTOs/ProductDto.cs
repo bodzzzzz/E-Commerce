@@ -9,7 +9,7 @@
         public int StockQuantity { get; set; }
         public int CategoryId { get; set; }
         // Optionally include category info
-        // public CategoryDto? Category { get; set; }
+        public CategoryDto? Category { get; set; }
     }
 
     public class CreateProductDto
@@ -28,5 +28,9 @@
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
         public int CategoryId { get; set; }
+    }
+    public class UpdateProductStockDto
+    {
+        public int StockQuantity { get; set; }
     }
 }
