@@ -19,6 +19,7 @@ namespace E_Commerce.Controllers
             this.unitOfWork = unitOfWork;
         }
         [HttpPost("Checkout/{userId}")]
+        [Authorize]
         public async Task<IActionResult> CheckoutAsync(int userId)
         {
             if (userId <= 0)
@@ -87,6 +88,7 @@ namespace E_Commerce.Controllers
             return Ok(orderDto);
         }
         [HttpGet("Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllOrders()
         {
             var orders = await unitOfWork.Order.GetAllAsync("OrderItems", "OrderItems.Product");

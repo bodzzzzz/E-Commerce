@@ -81,6 +81,7 @@ namespace E_Commerce.Repository
             user.Username = request.Username;
             user.PasswordHash = passwordHash.HashPassword(user, request.Password);
             context.Users.Add(user);
+            await context.SaveChangesAsync();
             var cart = new Cart
             {
                 UserId = user.Id

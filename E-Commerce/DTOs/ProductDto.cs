@@ -7,9 +7,10 @@
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
+        public string? ImageUrl { get; set; }
         public int CategoryId { get; set; }
         // Optionally include category info
-        public CategoryDto? Category { get; set; }
+        //public CategoryDto? Category { get; set; }
     }
 
     public class CreateProductDto
@@ -19,6 +20,7 @@
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
         public int CategoryId { get; set; }
+        public IFormFile? Image { get; set; }
     }
 
     public class UpdateProductDto
@@ -28,7 +30,9 @@
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
         public int CategoryId { get; set; }
+        public IFormFile? Image { get; set; }  // Added this property
     }
+
     public class UpdateProductStockDto
     {
         public int StockQuantity { get; set; }

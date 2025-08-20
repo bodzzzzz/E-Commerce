@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Updates</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+</head>
+<body>
+    <h2>Real-time Stock Updates</h2>
+    <div id="stockUpdates"></div>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/stockHub")
+            .withAutomaticReconnect()
+            .build();
+
+        connection.on("ReceiveStockUpdate", (productId, stockQuantity) => {
+            const stockDiv = document.getElementById("stockUpdates");
+            const updateMessage = `Product ${productId} stock updated to: ${stockQuantity}`;
+            stockDiv.innerHTML += `<p>${updateMessage}</p>`;
+            
+            // Update UI elements if needed
+            const stockElement = document.querySelector(`[data-product-stock="${productId}"]`);
+            if (stockElement) {
+                stockElement.textContent = stockQuantity;
+            }
+        });
+
+        async function start() {
+            try {
+                await connection.start();
+                console.log("SignalR Connected.");
+            } catch (err) {
+                console.log(err);
+                setTimeout(start, 5000);
+            }
+        }
+
+        connection.onclose(async () => {
+            await start();
+        });
+
+        // Start the connection
+        start();
+    </script>
+</body>
+</html>
